@@ -7,7 +7,8 @@ use App\Models\Item;
 
 class ItemController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
+
         return Item::all();
     }
 

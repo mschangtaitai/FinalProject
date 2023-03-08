@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ExamItemController;
+use App\Http\Controllers\TestController;
 
 
 /*
@@ -92,6 +93,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/items', [ItemController::class, 'store']);
 
     Route::post('/exam-items', [ExamItemController::class, 'store']);
+
+    Route::post('/tests', [TestController::class, 'store']);
 
 });
 
