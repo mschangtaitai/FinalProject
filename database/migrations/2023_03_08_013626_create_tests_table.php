@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained();
             $table->unsignedTinyInteger('words');
             $table->unsignedSmallInteger('words_per_minute');
+            $table->unsignedSmallInteger('time');
             $table->unsignedTinyInteger('type');
             $table->timestamps();
         });

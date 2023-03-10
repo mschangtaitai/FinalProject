@@ -39,5 +39,15 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return response()->noContent();
+
+        // $user = User::where('email', $request->email)->first();
+    
+        // if (! $user || ! Hash::check($request->password, $user->password)) {
+        //     throw ValidationException::withMessages([
+        //         'email' => ['The provided credentials are incorrect.'],
+        //     ]);
+        // }
+        
+        // return $user->createToken($request->device_name)->plainTextToken;
     }
 }

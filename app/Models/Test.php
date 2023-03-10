@@ -13,6 +13,7 @@ class Test extends Model
         'user_id',
         'words',
         'words_per_minute',
+        'time',
         'type'
     ];
 }
