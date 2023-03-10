@@ -37,6 +37,12 @@ Route::post('/register', [RegisteredUserController::class, 'store'])
                 ->middleware('guest')
                 ->name('register');
 
+Route::get('/users', [RegisteredUserController::class, 'index'])
+                ->middleware('guest');
+
+Route::delete('/users/{id}', [RegisteredUserController::class, 'destroy'])
+                ->middleware('guest');
+
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
                 ->middleware('guest')
                 ->name('login');

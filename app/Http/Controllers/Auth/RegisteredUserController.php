@@ -20,6 +20,12 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+
+    public function index(Request $request) {
+
+        return User::all();
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -38,16 +44,21 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return response()->noContent();
+        // return response()->noContent();
 
-        // $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->first();
     
-        // if (! $user || ! Hash::check($request->password, $user->password)) {
-        //     throw ValidationException::withMessages([
-        //         'email' => ['The provided credentials are incorrect.'],
-        //     ]);
-        // }
+        if (! $user || ! Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentials are incorrect.'],
+            ]);
+        }
         
-        // return $user->createToken($request->device_name)->plainTextToken;
+        return $user->createToken('device_name')->plainTextToken;
+    }
+
+    public function destroy($id){
+        $user = User::find($id);
+        $user->delete();
     }
 }
