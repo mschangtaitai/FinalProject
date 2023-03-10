@@ -53,8 +53,10 @@ class RegisteredUserController extends Controller
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
-        
-        return $user->createToken('device_name')->plainTextToken;
+
+
+        $response = "token: ".' '.($user->createToken('device_name')->plainTextToken);
+        return $response;
     }
 
     public function destroy($id){

@@ -82,7 +82,8 @@ Route::post('/sanctum/token', function (Request $request) {
         ]);
     }
     
-    return $user->createToken($request->device_name)->plainTextToken;
+    $response = "token: ".' '.($user->createToken('device_name')->plainTextToken);
+    return $response;
 });
 
 Route::post('/test', function(){
