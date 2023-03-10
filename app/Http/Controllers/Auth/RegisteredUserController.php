@@ -55,8 +55,10 @@ class RegisteredUserController extends Controller
         }
 
 
-        $response = "token: ".' '.($user->createToken('device_name')->plainTextToken);
-        return $response;
+        $responsetoken = $user->createToken('device_name')->plainTextToken;
+        return response()->json([
+            'token' => $responsetoken,
+        ]);
     }
 
     public function destroy($id){
