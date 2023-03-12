@@ -16,7 +16,7 @@ class TestController extends Controller
     {
     
         request()->validate([
-            'words' => 'required',
+            'words_percentage' => 'required',
             'words_per_minute' => 'required',
             'time' => 'required',
             'type' => 'required'
@@ -24,7 +24,7 @@ class TestController extends Controller
 
         return Test::create([
             'user_id' => $request->user()->id,
-            'words' => request('words'),
+            'words_percentage' => request('words_percentage'),
             'words_per_minute' => request('words_per_minute'),
             'time' => request('time'),
             'type' => request('type'),

@@ -11,7 +11,7 @@ class Test extends Model
 
     protected $fillable = [
         'user_id',
-        'words',
+        'words_percentage',
         'words_per_minute',
         'time',
         'type'

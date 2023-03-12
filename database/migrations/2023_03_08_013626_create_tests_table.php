@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained();
-            $table->unsignedTinyInteger('words');
+            $table->unsignedTinyInteger('words_percentage');
             $table->unsignedSmallInteger('words_per_minute');
             $table->unsignedSmallInteger('time');
             $table->unsignedTinyInteger('type');
