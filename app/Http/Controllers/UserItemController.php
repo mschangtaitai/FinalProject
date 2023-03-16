@@ -46,10 +46,10 @@ class UserItemController extends Controller
         }
 
         $response = collect([
-            'week 1' => $week1Total,
-            'week 2' => $week2Total,
-            'week 3' => $week3Total,
-            'week 4' => $week4Total,
+            ['id' => 1, 'name' => 'week 1', 'progression' => $week1Total],
+            ['id' => 2, 'name' => 'week 2', 'progression' => $week2Total],
+            ['id' => 3, 'name' => 'week 3', 'progression' => $week3Total],
+            ['id' => 4, 'name' => 'week 4', 'progression' => $week4Total]
         ]);
 
         return $response;
