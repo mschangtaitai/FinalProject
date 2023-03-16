@@ -61,4 +61,5 @@ class AuthenticatedSessionController extends Controller
 
         return $response;
     }
+
 }

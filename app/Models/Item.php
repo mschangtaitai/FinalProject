@@ -10,7 +10,14 @@ class Item extends Model
     use HasFactory;
 
     protected $fillable = [
+        'week',
+        'day',
+        'time',
+        'tools',
         'name',
-        'grade'
+        'objective',
+        'instructions',
+        'file_path',
+        'type'
     ];
 }

@@ -15,12 +15,15 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['time', 'words', 'iterations']);
+            $table->unsignedTinyInteger('week');
+            $table->unsignedTinyInteger('day');
+            $table->unsignedSmallInteger('time');
+            $table->string('tools')->nullable();
             $table->string('name');
             $table->text('objective');
             $table->text('instructions');
             $table->string('file_path');
-            $table->string('tools')->nullable();
+            $table->enum('type', ['time', 'words', 'iterations']);
             $table->timestamps();
         });
     }

@@ -7,7 +7,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\ExamItemController;
+use App\Http\Controllers\UserItemController;
 use App\Http\Controllers\TestController;
 
 
@@ -89,21 +89,17 @@ Route::post('/sanctum/token', function (Request $request) {
 });
 
 Route::post('/test', function(){
-    return 'Hola';
+    return 'Api is working correctly!';
 });
 
 Route::middleware('auth:sanctum')->group(function(){
 
     Route::get('/user', [AuthenticatedSessionController::class, 'current']);
     
-    Route::get('/exams', [ExamController::class, 'index']);
-    Route::get('/exams/{id}', [ExamController::class, 'show']);
-    Route::post('/exams', [ExamController::class, 'store']);
-    
     Route::get('/items', [ItemController::class, 'index']);
     Route::post('/items', [ItemController::class, 'store']);
-
-    Route::post('/exam-items', [ExamItemController::class, 'store']);
+    Route::post('/user_items', [UserItemController::class, 'store']);
+    Route::get('/dashboard', [UserItemController::class, 'dashboard']);
 
     Route::post('/tests', [TestController::class, 'store']);
 

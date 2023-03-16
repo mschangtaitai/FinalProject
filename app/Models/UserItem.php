@@ -4,13 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Item;
 
-class UserExam extends Model
+
+class UserItem extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
-        'exam_id'
+        'item_id',
+        'value',
+        'progression',
     ];
+
+    public function item_id()
+    {
+        return $this->belongsTo(Item::class);
+    }
+
 }
