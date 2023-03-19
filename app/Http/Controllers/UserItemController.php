@@ -55,6 +55,160 @@ class UserItemController extends Controller
         return $response;
     }
 
+    public function week(Request $request, $week) {
+        $user_id = $request->user()->id;
+
+        $items = UserItem::where('user_id',$user_id)->get();
+
+        $responseDay1 = collect([]);
+        $responseDay2 = collect([]);
+        $responseDay3 = collect([]);
+        $responseDay4 = collect([]);
+        $responseDay5 = collect([]);
+        $responseDay6 = collect([]);
+        $responseDay7 = collect([]);
+        
+        foreach ($items as $item) {
+            $search = Item::where('week',$week)->where('id', $item->item_id)->first();
+            if($search != null){
+                if($search->day == 1){
+                    $toAdd = collect([
+                        'id' => $search->id,
+                        'week' => $search->week,
+                        'day' => $search->day,
+                        'tool' => $search->tool,
+                        'name' => $search->name,
+                        'type' => $search->type,
+                        'progression' => $item->progression,
+
+                    ]);
+                    $responseDay1->push($toAdd);
+                }
+                elseif($search->day == 2){
+                    $toAdd = collect([
+                        'id' => $search->id,
+                        'week' => $search->week,
+                        'day' => $search->day,
+                        'tool' => $search->tool,
+                        'name' => $search->name,
+                        'type' => $search->type,
+                        'progression' => $item->progression,
+
+                    ]);
+                    $responseDay2->push($toAdd);
+                }
+                elseif($search->day == 3){
+                    $toAdd = collect([
+                        'id' => $search->id,
+                        'week' => $search->week,
+                        'day' => $search->day,
+                        'tool' => $search->tool,
+                        'name' => $search->name,
+                        'type' => $search->type,
+                        'progression' => $item->progression,
+
+                    ]);
+                    $responseDay3->push($toAdd);
+                }
+                elseif($search->day == 4){
+                    $toAdd = collect([
+                        'id' => $search->id,
+                        'week' => $search->week,
+                        'day' => $search->day,
+                        'tool' => $search->tool,
+                        'name' => $search->name,
+                        'type' => $search->type,
+                        'progression' => $item->progression,
+
+                    ]);
+                    $responseDay4->push($toAdd);
+                }
+                elseif($search->day == 5){
+                    $toAdd = collect([
+                        'id' => $search->id,
+                        'week' => $search->week,
+                        'day' => $search->day,
+                        'tool' => $search->tool,
+                        'name' => $search->name,
+                        'type' => $search->type,
+                        'progression' => $item->progression,
+
+                    ]);
+                    $responseDay5->push($toAdd);
+                }
+                elseif($search->day == 6){
+                    $toAdd = collect([
+                        'id' => $search->id,
+                        'week' => $search->week,
+                        'day' => $search->day,
+                        'tool' => $search->tool,
+                        'name' => $search->name,
+                        'type' => $search->type,
+                        'progression' => $item->progression,
+
+                    ]);
+                    $responseDay6->push($toAdd);
+                }
+                elseif($search->day == 7){
+                    $toAdd = collect([
+                        'id' => $search->id,
+                        'week' => $search->week,
+                        'day' => $search->day,
+                        'tool' => $search->tool,
+                        'name' => $search->name,
+                        'type' => $search->type,
+                        'progression' => $item->progression,
+
+                    ]);
+                    $responseDay7->push($toAdd);
+                }
+            }
+        }
+
+        $days = collect([
+            'id' => $week,
+            'days' => [
+                collect([
+                    'id' => '1',
+                    'name' => 'Dia 1',
+                    'exercises' => $responseDay1
+                ]),
+                collect([
+                    'id' => '2',
+                    'name' => 'Dia 2',
+                    'exercises' => $responseDay2
+                ]),
+                collect([
+                    'id' => '3',
+                    'name' => 'Dia 3',
+                    'exercises' => $responseDay3
+                ]),
+                collect([
+                    'id' => '4',
+                    'name' => 'Dia 4',
+                    'exercises' => $responseDay4
+                ]),
+                collect([
+                    'id' => '5',
+                    'name' => 'Dia 5',
+                    'exercises' => $responseDay5
+                ]),
+                collect([
+                    'id' => '6',
+                    'name' => 'Dia 6',
+                    'exercises' => $responseDay6
+                ]),
+                collect([
+                    'id' => '7',
+                    'name' => 'Dia 7',
+                    'exercises' => $responseDay7
+                ]),
+            ],
+        ]);
+
+        return $days;
+    }
+
     public function store(Request $request)
     {
         request()->validate([
