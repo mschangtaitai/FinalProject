@@ -100,7 +100,11 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/items', [ItemController::class, 'store']);
     Route::get('/items/{id}', [ItemController::class, 'get']);
     Route::delete('/items/{id}', [ItemController::class, 'delete']);
+
+    Route::get('/user_items', [UserItemController::class, 'index']);
     Route::post('/user_items', [UserItemController::class, 'store']);
+    Route::delete('/user_items/{id}', [UserItemController::class, 'delete']);
+
     Route::get('/dashboard', [UserItemController::class, 'dashboard']);
     Route::get('/week/{week}', [UserItemController::class, 'week']);
     Route::post('/progress', [UserItemController::class, 'progress']);

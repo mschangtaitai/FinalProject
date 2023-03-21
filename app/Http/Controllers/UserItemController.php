@@ -8,6 +8,11 @@ use App\Models\Item;
 
 class UserItemController extends Controller
 {
+
+    public function index(Request $request) {
+        return UserItem::all();
+    }
+
     public function dashboard(Request $request) {
         $user_id = $request->user()->id;
 
@@ -65,7 +70,7 @@ class UserItemController extends Controller
                 'itemId'=> $user_item->item->id,
                 'week' => $user_item->item->week,
                 'day' => $user_item->item->day,
-                'tool' => $user_item->item->tool,
+                'tools' => $user_item->item->tools,
                 'name' => $user_item->item->name,
                 'type' => (int)$user_item->item->type,
                 'progression' => (int)$user_item->progression,
@@ -112,5 +117,10 @@ class UserItemController extends Controller
         $userItem->save();
 
         return $userItem;
+    }
+
+    public function delete($id){
+        $user_item = UserItem::where('id',$id)->delete();
+        return $user_item
     }
 }
