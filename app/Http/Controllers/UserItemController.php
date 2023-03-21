@@ -58,163 +58,34 @@ class UserItemController extends Controller
     public function week(Request $request, $week) {
         $user_id = $request->user()->id;
 
-        $items = UserItem::where('user_id',$user_id)->get();
+        $user_items = UserItem::with('item')->where('user_id',$user_id)->get();
+        $user_items = $user_items->where('item.week', $week)->map(function ($user_item) {
+            return collect([
+                'id' => $user_item->id,
+                'itemId'=> $user_item->item->id,
+                'week' => $user_item->item->week,
+                'day' => $user_item->item->day,
+                'tool' => $user_item->item->tool,
+                'name' => $user_item->item->name,
+                'type' => (int)$user_item->item->type,
+                'progression' => (int)$user_item->progression,
+            ]);
+        });
 
-        $responseDay1 = collect([]);
-        $responseDay2 = collect([]);
-        $responseDay3 = collect([]);
-        $responseDay4 = collect([]);
-        $responseDay5 = collect([]);
-        $responseDay6 = collect([]);
-        $responseDay7 = collect([]);
-        
-        foreach ($items as $item) {
-            $search = Item::where('week',$week)->where('id', $item->item_id)->first();
-            if($search != null){
-                if($search->day == 1){
-                    $toAdd = collect([
-                        'id' => $item->id,
-                        'itemId'=> $search->id,
-                        'week' => $search->week,
-                        'day' => $search->day,
-                        'tool' => $search->tool,
-                        'name' => $search->name,
-                        'type' => (int)$search->type,
-                        'progression' => (int)$item->progression,
-                    ]);
-                    $responseDay1->push($toAdd);
-                }
-                elseif($search->day == 2){
+        $exercises = collect([1,2,3,4,5,6,7])->map(function ($day) use ($user_items) {
+            return collect([
+                'id' => $day,
+                'name' => 'Día ' . $day,
+                'exercises' => $user_items->where('day', $day)
+            ]);
+        });
 
-                    $toAdd = collect([
-                        'id' => $item->id,
-                        'itemId'=> $search->id,
-                        'week' => $search->week,
-                        'day' => $search->day,
-                        'tool' => $search->tool,
-                        'name' => $search->name,
-                        'type' => (int)$search->type,
-                        'progression' => (int)$item->progression,
-
-                    ]);
-                    $responseDay2->push($toAdd);
-
-                }
-                elseif($search->day == 3){
-                    $toAdd = collect([
-                        'id' => $item->id,
-                        'itemId'=> $search->id,
-                        'week' => $search->week,
-                        'day' => $search->day,
-                        'tool' => $search->tool,
-                        'name' => $search->name,
-                        'type' => (int)$search->type,
-                        'progression' => (int)$item->progression,
-
-                    ]);
-                    $responseDay3->push($toAdd);
-                }
-                elseif($search->day == 4){
-                    $toAdd = collect([
-                        'id' => $item->id,
-                        'itemId'=> $search->id,
-                        'week' => $search->week,
-                        'day' => $search->day,
-                        'tool' => $search->tool,
-                        'name' => $search->name,
-                        'type' => (int)$search->type,
-                        'progression' => (int)$item->progression,
-
-                    ]);
-                    $responseDay4->push($toAdd);
-                }
-                elseif($search->day == 5){
-                    $toAdd = collect([
-                        'id' => $item->id,
-                        'itemId'=> $search->id,
-                        'week' => $search->week,
-                        'day' => $search->day,
-                        'tool' => $search->tool,
-                        'name' => $search->name,
-                        'type' => (int)$search->type,
-                        'progression' => (int)$item->progression,
-
-                    ]);
-                    $responseDay5->push($toAdd);
-                }
-                elseif($search->day == 6){
-                    $toAdd = collect([
-                        'id' => $item->id,
-                        'itemId'=> $search->id,
-                        'week' => $search->week,
-                        'day' => $search->day,
-                        'tool' => $search->tool,
-                        'name' => $search->name,
-                        'type' => (int)$search->type,
-                        'progression' => (int)$item->progression,
-
-                    ]);
-                    $responseDay6->push($toAdd);
-                }
-                elseif($search->day == 7){
-                    $toAdd = collect([
-                        'id' => $item->id,
-                        'itemId'=> $search->id,
-                        'week' => $search->week,
-                        'day' => $search->day,
-                        'tool' => $search->tool,
-                        'name' => $search->name,
-                        'type' => (int)$search->type,
-                        'progression' => (int)$item->progression,
-
-                    ]);
-                    $responseDay7->push($toAdd);
-                }
-            }
-        }
-
-        $days = collect([
+        $week = collect([
             'id' => (int)$week,
-            'days' => [
-                collect([
-                    'id' => 1,
-                    'name' => 'Dia 1',
-                    'exercises' => $responseDay1
-                ]),
-                collect([
-                    'id' => 2,
-                    'name' => 'Dia 2',
-                    'exercises' => $responseDay2
-                ]),
-                collect([
-                    'id' => 3,
-                    'name' => 'Dia 3',
-                    'exercises' => $responseDay3
-                ]),
-                collect([
-                    'id' => 4,
-                    'name' => 'Dia 4',
-                    'exercises' => $responseDay4
-                ]),
-                collect([
-                    'id' => 5,
-                    'name' => 'Dia 5',
-                    'exercises' => $responseDay5
-                ]),
-                collect([
-                    'id' => 6,
-                    'name' => 'Dia 6',
-                    'exercises' => $responseDay6
-                ]),
-                collect([
-                    'id' => 7,
-                    'name' => 'Dia 7',
-                    'exercises' => $responseDay7
-                ]),
-            ],
+            'days' => $exercises
         ]);
 
-        return $days;
+        return $week;
     }
 
     public function store(Request $request)

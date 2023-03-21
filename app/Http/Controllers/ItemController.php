@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\Item;
 
@@ -21,7 +22,7 @@ class ItemController extends Controller
             'name' => 'required',
             'objective' => 'required',
             'instructions' => 'required',
-            'file_path' => 'required',
+            'file' => 'required',
             'type' => 'required',
         ]);
     
@@ -33,8 +34,16 @@ class ItemController extends Controller
             'name' => request('name'),
             'objective' => request('objective'),
             'instructions' => request('instructions'),
-            'file_path' => request('file_path'),
+            'file_path' => request()->file('file')->store('files'),
             'type' => request('type'),
         ]);
+    }
+
+    public function get($id){
+        $item = Item::where('id',$id)->first();
+        $item->file_path = Storage::temporaryUrl(
+            $item->file_path, now()->addMinutes(1)
+        );
+        return $item;
     }
 }

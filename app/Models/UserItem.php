@@ -18,7 +18,7 @@ class UserItem extends Model
         'progression',
     ];
 
-    public function item_id()
+    public function item()
     {
         return $this->belongsTo(Item::class);
     }
