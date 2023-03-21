@@ -81,7 +81,7 @@ class UserItemController extends Controller
             return collect([
                 'id' => $day,
                 'name' => 'Día ' . $day,
-                'exercises' => $user_items->where('day', $day)
+                'exercises' => $user_items->where('day', $day)->values()
             ]);
         });
 
