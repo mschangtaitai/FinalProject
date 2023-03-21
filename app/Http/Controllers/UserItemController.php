@@ -74,6 +74,7 @@ class UserItemController extends Controller
                 if($search->day == 1){
                     $toAdd = collect([
                         'id' => $item->id,
+                        'itemId'=> $search->id,
                         'week' => $search->week,
                         'day' => $search->day,
                         'tool' => $search->tool,
@@ -87,6 +88,7 @@ class UserItemController extends Controller
 
                     $toAdd = collect([
                         'id' => $item->id,
+                        'itemId'=> $search->id,
                         'week' => $search->week,
                         'day' => $search->day,
                         'tool' => $search->tool,
@@ -101,6 +103,7 @@ class UserItemController extends Controller
                 elseif($search->day == 3){
                     $toAdd = collect([
                         'id' => $item->id,
+                        'itemId'=> $search->id,
                         'week' => $search->week,
                         'day' => $search->day,
                         'tool' => $search->tool,
@@ -114,6 +117,7 @@ class UserItemController extends Controller
                 elseif($search->day == 4){
                     $toAdd = collect([
                         'id' => $item->id,
+                        'itemId'=> $search->id,
                         'week' => $search->week,
                         'day' => $search->day,
                         'tool' => $search->tool,
@@ -127,6 +131,7 @@ class UserItemController extends Controller
                 elseif($search->day == 5){
                     $toAdd = collect([
                         'id' => $item->id,
+                        'itemId'=> $search->id,
                         'week' => $search->week,
                         'day' => $search->day,
                         'tool' => $search->tool,
@@ -140,6 +145,7 @@ class UserItemController extends Controller
                 elseif($search->day == 6){
                     $toAdd = collect([
                         'id' => $item->id,
+                        'itemId'=> $search->id,
                         'week' => $search->week,
                         'day' => $search->day,
                         'tool' => $search->tool,
@@ -153,6 +159,7 @@ class UserItemController extends Controller
                 elseif($search->day == 7){
                     $toAdd = collect([
                         'id' => $item->id,
+                        'itemId'=> $search->id,
                         'week' => $search->week,
                         'day' => $search->day,
                         'tool' => $search->tool,
