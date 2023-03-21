@@ -130,7 +130,7 @@ class UserItemController extends Controller
 
         $items = Item::all();
 
-        $items->map( function ($item) {
+        $items->map( function ($item) use ($request) {
             $user_item = UserItem::create([
                 'user_id' => $request->user()->id,
                 'item_id' => $item->id,
