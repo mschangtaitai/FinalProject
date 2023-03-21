@@ -115,12 +115,31 @@ class UserItemController extends Controller
         $userItem->progression = (string)($userItem->progression + 1);
         $userItem->value = $request->value;
         $userItem->save();
+        $userItem->progression = (int)($userItem->progression);
+
 
         return $userItem;
     }
 
     public function delete($id){
         $user_item = UserItem::where('id',$id)->delete();
-        return $user_item
+        return $user_item;
+    }
+
+    public function assign(){
+
+        $items = Item::all();
+
+        $items->map( function ($item) {
+            $user_item = UserItem::create([
+                'user_id' => $request->user()->id,
+                'item_id' => $item->id,
+                'value' => 0,
+                'progression' => "0",
+            ]);
+
+        })
+
+        return 'User Items created for current user!';
     }
 }
