@@ -126,7 +126,7 @@ class UserItemController extends Controller
         return $user_item;
     }
 
-    public function assign(){
+    public function assign(Request $request){
 
         $items = Item::all();
 
