@@ -23,7 +23,7 @@ return new class extends Migration
             $table->text('objective');
             $table->text('instructions');
             $table->string('file_path');
-            $table->enum('type', ['time', 'words', 'iterations']);
+            $table->enum('type', [0, 1, 2, 3, 4]);
             $table->timestamps();
         });
     }

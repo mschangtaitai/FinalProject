@@ -73,91 +73,92 @@ class UserItemController extends Controller
             if($search != null){
                 if($search->day == 1){
                     $toAdd = collect([
-                        'id' => $search->id,
+                        'id' => $item->id,
                         'week' => $search->week,
                         'day' => $search->day,
                         'tool' => $search->tool,
                         'name' => $search->name,
-                        'type' => $search->type,
-                        'progression' => $item->progression,
-
+                        'type' => (int)$search->type,
+                        'progression' => (int)$item->progression,
                     ]);
                     $responseDay1->push($toAdd);
                 }
                 elseif($search->day == 2){
+
                     $toAdd = collect([
-                        'id' => $search->id,
+                        'id' => $item->id,
                         'week' => $search->week,
                         'day' => $search->day,
                         'tool' => $search->tool,
                         'name' => $search->name,
-                        'type' => $search->type,
-                        'progression' => $item->progression,
+                        'type' => (int)$search->type,
+                        'progression' => (int)$item->progression,
 
                     ]);
                     $responseDay2->push($toAdd);
+
                 }
                 elseif($search->day == 3){
                     $toAdd = collect([
-                        'id' => $search->id,
+                        'id' => $item->id,
                         'week' => $search->week,
                         'day' => $search->day,
                         'tool' => $search->tool,
                         'name' => $search->name,
-                        'type' => $search->type,
-                        'progression' => $item->progression,
+                        'type' => (int)$search->type,
+                        'progression' => (int)$item->progression,
 
                     ]);
                     $responseDay3->push($toAdd);
                 }
                 elseif($search->day == 4){
                     $toAdd = collect([
-                        'id' => $search->id,
+                        'id' => $item->id,
                         'week' => $search->week,
                         'day' => $search->day,
                         'tool' => $search->tool,
                         'name' => $search->name,
-                        'type' => $search->type,
-                        'progression' => $item->progression,
+                        'type' => (int)$search->type,
+                        'progression' => (int)$item->progression,
 
                     ]);
                     $responseDay4->push($toAdd);
                 }
                 elseif($search->day == 5){
                     $toAdd = collect([
-                        'id' => $search->id,
+                        'id' => $item->id,
                         'week' => $search->week,
                         'day' => $search->day,
                         'tool' => $search->tool,
                         'name' => $search->name,
-                        'type' => $search->type,
-                        'progression' => $item->progression,
+                        'type' => (int)$search->type,
+                        'progression' => (int)$item->progression,
 
                     ]);
                     $responseDay5->push($toAdd);
                 }
                 elseif($search->day == 6){
                     $toAdd = collect([
-                        'id' => $search->id,
+                        'id' => $item->id,
                         'week' => $search->week,
                         'day' => $search->day,
                         'tool' => $search->tool,
                         'name' => $search->name,
-                        'type' => $search->type,
-                        'progression' => $item->progression,
+                        'type' => (int)$search->type,
+                        'progression' => (int)$item->progression,
 
                     ]);
                     $responseDay6->push($toAdd);
                 }
                 elseif($search->day == 7){
                     $toAdd = collect([
-                        'id' => $search->id,
+                        'id' => $item->id,
                         'week' => $search->week,
                         'day' => $search->day,
                         'tool' => $search->tool,
                         'name' => $search->name,
-                        'type' => $search->type,
-                        'progression' => $item->progression,
+                        'type' => (int)$search->type,
+                        'progression' => (int)$item->progression,
 
                     ]);
                     $responseDay7->push($toAdd);
@@ -166,40 +167,40 @@ class UserItemController extends Controller
         }
 
         $days = collect([
-            'id' => $week,
+            'id' => (int)$week,
             'days' => [
                 collect([
-                    'id' => '1',
+                    'id' => 1,
                     'name' => 'Dia 1',
                     'exercises' => $responseDay1
                 ]),
                 collect([
-                    'id' => '2',
+                    'id' => 2,
                     'name' => 'Dia 2',
                     'exercises' => $responseDay2
                 ]),
                 collect([
-                    'id' => '3',
+                    'id' => 3,
                     'name' => 'Dia 3',
                     'exercises' => $responseDay3
                 ]),
                 collect([
-                    'id' => '4',
+                    'id' => 4,
                     'name' => 'Dia 4',
                     'exercises' => $responseDay4
                 ]),
                 collect([
-                    'id' => '5',
+                    'id' => 5,
                     'name' => 'Dia 5',
                     'exercises' => $responseDay5
                 ]),
                 collect([
-                    'id' => '6',
+                    'id' => 6,
                     'name' => 'Dia 6',
                     'exercises' => $responseDay6
                 ]),
                 collect([
-                    'id' => '7',
+                    'id' => 7,
                     'name' => 'Dia 7',
                     'exercises' => $responseDay7
                 ]),
@@ -223,5 +224,15 @@ class UserItemController extends Controller
             'value' => request('value'),
             'progression' => request('progression'),
         ]);
+    }
+    
+    public function progress(Request $request){
+        $userItem = UserItem::where('id',$request->id)->first();
+        echo $userItem;
+        $userItem->progression = (string)($userItem->progression + 1);
+        $userItem->value = $request->value;
+        $userItem->save();
+
+        return $userItem;
     }
 }

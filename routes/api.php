@@ -101,6 +101,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/user_items', [UserItemController::class, 'store']);
     Route::get('/dashboard', [UserItemController::class, 'dashboard']);
     Route::get('/week/{week}', [UserItemController::class, 'week']);
+    Route::post('/progress', [UserItemController::class, 'progress']);
 
     Route::post('/tests', [TestController::class, 'store']);
 

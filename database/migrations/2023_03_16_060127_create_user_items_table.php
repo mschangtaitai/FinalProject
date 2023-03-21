@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Item::class)->constrained();
             $table->unsignedSmallInteger('value');
-            $table->enum('progression', ['0','1','2','3']);
+            $table->enum('progression', [0,1,2,3]);
             $table->timestamps();
         });
     }
