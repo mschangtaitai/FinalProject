@@ -99,6 +99,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/items', [ItemController::class, 'index']);
     Route::post('/items', [ItemController::class, 'store']);
     Route::get('/items/{id}', [ItemController::class, 'get']);
+    Route::delete('/items/{id}', [ItemController::class, 'delete']);
     Route::post('/user_items', [UserItemController::class, 'store']);
     Route::get('/dashboard', [UserItemController::class, 'dashboard']);
     Route::get('/week/{week}', [UserItemController::class, 'week']);

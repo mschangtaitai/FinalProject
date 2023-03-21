@@ -46,4 +46,8 @@ class ItemController extends Controller
         );
         return $item;
     }
+
+    public function delete($id){
+        $item = Item::where('id',$id)->delete();
+    }
 }
