@@ -16,48 +16,34 @@ class UserItemController extends Controller
     public function dashboard(Request $request) {
         $user_id = $request->user()->id;
 
-        $items = UserItem::where('user_id',$user_id)->get();
+        $user_items = UserItem::with('item')->where('user_id',$user_id)->get();
 
-        $week1Total = 0;
-        foreach ($items as $item) {
-            $search = Item::where('week','1')->where('id', $item->item_id)->first();
-            if($search != null and $item->progression == '2'){
-                $week1Total++;
+        
+        $totals = collect(['1' => 0,'2' => 0,'3' => 0,'4' => 0]);
+        $user_items->map(function ($user_item) use ($user_items,$totals) {
+            if($user_item->progression == '3'){
+                if($user_item->item->week == '1') {
+                    $totals->put('1', $totals->get('1') + 1);
+                }
+                elseif($user_item->item->week == '2') {
+                    $totals->put('2', $totals->get('2') + 1);
+                }
+                elseif($user_item->item->week == '3') {
+                    $totals->put('3', $totals->get('3') + 1);
+                }
+                elseif($user_item->item->week == '4') {
+                    $totals->put('4', $totals->get('4') + 1);
+                }
             }
-        }
-
-        $week2Total = 0;
-        foreach ($items as $item) {
-            $search = Item::where('week','2')->where('id', $item->item_id)->first();
-            if($search != null and $item->progression == '2'){
-                $week2Total++;
-            }
-        }
-
-        $week3Total = 0;
-        foreach ($items as $item) {
-            $search = Item::where('week','3')->where('id', $item->item_id)->first();
-            if($search != null and $item->progression == '2'){
-                $week3Total++;
-            }
-        }
-
-        $week4Total = 0;
-        foreach ($items as $item) {
-            $search = Item::where('week','4')->where('id', $item->item_id)->first();
-            if($search != null and $item->progression == '2'){
-                $week4Total++;
-            }
-        }
-
-        $response = collect([
-            ['id' => 1, 'name' => 'week 1', 'progression' => $week1Total],
-            ['id' => 2, 'name' => 'week 2', 'progression' => $week2Total],
-            ['id' => 3, 'name' => 'week 3', 'progression' => $week3Total],
-            ['id' => 4, 'name' => 'week 4', 'progression' => $week4Total]
-        ]);
-
-        return $response;
+        });
+        
+        $dashboard = collect(['1','2','3','4'])->map( function ($week) use ($totals) {
+            return collect([
+                'id' => $week, 'name' => 'week ' . $week, 'progression' => $totals->get($week),
+            ]);
+        });
+        
+        return $dashboard;
     }
 
     public function week(Request $request, $week) {
@@ -111,14 +97,18 @@ class UserItemController extends Controller
     
     public function progress(Request $request){
         $userItem = UserItem::where('id',$request->id)->first();
-        echo $userItem;
+        $oldItem = clone $userItem;
         $userItem->progression = (string)($userItem->progression + 1);
         $userItem->value = $request->value;
         $userItem->save();
         $userItem->progression = (int)($userItem->progression);
+        $oldItem->progression = (int)($oldItem->progression);
 
 
-        return $userItem;
+        return collect([
+            'old' => $oldItem,
+            'new' => $userItem
+        ]);
     }
 
     public function delete($id){
