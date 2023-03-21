@@ -138,7 +138,7 @@ class UserItemController extends Controller
                 'progression' => "0",
             ]);
 
-        })
+        });
 
         return 'User Items created for current user!';
     }
