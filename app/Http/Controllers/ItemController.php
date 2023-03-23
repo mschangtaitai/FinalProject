@@ -44,6 +44,7 @@ class ItemController extends Controller
         $item->file_path = Storage::temporaryUrl(
             $item->file_path, now()->addMinutes(1)
         );
+        $item->type = (int)$item->type;
         return $item;
     }
 
