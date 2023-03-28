@@ -95,6 +95,7 @@ Route::post('/test', function(){
 Route::middleware('auth:sanctum')->group(function(){
 
     Route::get('/user', [AuthenticatedSessionController::class, 'current']);
+    Route::get('/results', [AuthenticatedSessionController::class, 'results']);
     
     Route::get('/items', [ItemController::class, 'index']);
     Route::post('/items', [ItemController::class, 'store']);
@@ -110,7 +111,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/progress', [UserItemController::class, 'progress']);
 
     Route::get('/assign', [UserItemController::class, 'assign']);
-
+    Route::get('/final_availability', [UserItemController::class, 'final_availability']);
 
     Route::post('/tests', [TestController::class, 'store']);
 

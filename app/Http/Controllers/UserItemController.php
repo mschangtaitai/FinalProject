@@ -132,4 +132,18 @@ class UserItemController extends Controller
 
         return 'User Items created for current user!';
     }
+
+    public function final_availability(Request $request) {
+        $user_id = $request->user()->id;
+
+        $user_items = UserItem::with('item')->where('user_id',$user_id)->get();
+        $final_item = $user_items->where('item.week', 3)->where('item.day', 7)->sum('progression');
+
+        if($final_item == 15) {
+            return collect(['Available'=>TRUE]);
+        }
+
+        return collect(['Available'=>FALSE]);
+
+    }
 }

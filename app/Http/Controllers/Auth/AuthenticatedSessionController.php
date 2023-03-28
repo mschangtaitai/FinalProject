@@ -62,4 +62,23 @@ class AuthenticatedSessionController extends Controller
         return $response;
     }
 
+    public function results(Request $request) {
+        $user_id = $request->user()->id;
+        $initial_test = Test::where('user_id',$user_id)->where('type', 1)->first();
+        $final_test = Test::where('user_id',$user_id)->where('type', 2)->first();
+
+        $improvement = collect([
+            'words_percentage'=>($final_test->words_percentage/$initial_test->words_percentage)*100,
+            'words_per_minute'=>($final_test->words_per_minute/$initial_test->words_per_minute)*100
+        ]);
+
+        $results = collect([
+            'initial_test' => $initial_test,
+            'final_test' => $final_test,
+            'improvement' => $improvement
+        ]);
+
+        return $results;
+    }
+
 }
