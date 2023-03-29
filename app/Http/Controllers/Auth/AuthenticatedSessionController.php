@@ -78,8 +78,8 @@ class AuthenticatedSessionController extends Controller
         $final_test = Test::where('user_id',$user_id)->where('type', 2)->first();
 
         $improvement = collect([
-            'words_percentage'=>($final_test->words_percentage/$initial_test->words_percentage)*100,
-            'words_per_minute'=>($final_test->words_per_minute/$initial_test->words_per_minute)*100
+            'words_percentage'=>($final_test->words_percentage-$initial_test->words_percentage)/$initial_test->words_percentage*100,
+            'words_per_minute'=>($final_test->words_per_minute-$initial_test->words_per_minute)/$initial_test->words_per_minute*100
         ]);
 
         $results = collect([
