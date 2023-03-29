@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Test;
+use App\Models\UserItem;
 
 
 class AuthenticatedSessionController extends Controller
@@ -58,6 +59,15 @@ class AuthenticatedSessionController extends Controller
         $response->has_completed_tutorial = $has_completed_tutorial;
         $response->has_completed_initial_test = $has_completed_initial_test;
         $response->has_completed_final_test = $has_completed_final_test;
+
+        $user_items = UserItem::with('item')->where('user_id',$user_id)->get();
+        $final_item = $user_items->where('item.week', 3)->where('item.day', 7)->sum('progression');
+
+        $response->can_access_final_test = FALSE;
+        if($final_item == 15) {
+            $response->can_access_final_test = TRUE;
+        }
+
 
         return $response;
     }
