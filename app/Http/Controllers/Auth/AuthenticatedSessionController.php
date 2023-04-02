@@ -61,7 +61,7 @@ class AuthenticatedSessionController extends Controller
         $response->has_completed_final_test = $has_completed_final_test;
 
         $user_items = UserItem::with('item')->where('user_id',$user_id)->get();
-        $final_item = $user_items->where('item.week', 1)->where('item.day', 1)->sum('progression');
+        $final_item = $user_items->where('item.week', 3)->where('item.day', 7)->sum('progression');
 
         $response->can_access_final_test = FALSE;
         if($final_item == 15) {
