@@ -139,6 +139,7 @@ class UserItemController extends Controller
         $user_items = UserItem::with('item')->where('user_id',$user_id)->get();
         $final_item = $user_items->where('item.week', 2)->where('item.day', 7)->sum('progression');
 
+        echo $final_item;
         if($final_item == 15) {
             return collect(['Available'=>TRUE]);
         }
