@@ -114,6 +114,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/final_availability', [UserItemController::class, 'final_availability']);
 
     Route::post('/tests', [TestController::class, 'store']);
+    Route::post('/tests/{test}', [TestController::class, 'update']);
     Route::get('/tests', [TestController::class, 'index']);
 
 });

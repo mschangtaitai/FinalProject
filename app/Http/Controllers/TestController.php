@@ -30,4 +30,17 @@ class TestController extends Controller
             'type' => request('type'),
         ]);
     }
+
+    public function update(Request $request, $test)
+    {
+
+
+        $current_test = Test::find($test);
+        $current_test->timestamps = false;
+        $current_test->words_percentage = request('words_percentage');
+        $current_test->words_per_minute = request('words_per_minute');
+        $current_test->time = request('time');
+        $current_test->save();
+        return $current_test;
+    }
 }
