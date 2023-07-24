@@ -1,0 +1,1 @@
+locust -f loadTest.py --host https://lectogym.bchan.io/api --users 100 --spawn-rate 10
