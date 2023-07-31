@@ -33,4 +33,8 @@ class WebsiteUser(HttpUser):
     @task
     def finalAvailability(self):
         self.client.get("/final_availability", headers ={"authorization": self.token})
+    
+    @task
+    def results(self):
+        self.client.get("/results", headers ={"authorization": self.token})
 
